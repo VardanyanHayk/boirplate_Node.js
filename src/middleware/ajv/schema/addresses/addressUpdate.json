@@ -1,0 +1,57 @@
+{
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "city": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 30
+        },
+        "street": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 50
+        },
+        "home": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 30
+        },
+        "building": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 30
+        },
+        "entrace": {
+          "type": "number"
+        },
+        "floor": {
+          "type": "number"
+        },
+        "flat": {
+          "type": "number"
+        },
+        "intercom": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 30
+        },
+        "location": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "elevator": {
+          "type": "boolean"
+        },
+        "default": {
+          "type": "boolean"
+        }
+      }
+    }
+  },
+  "required": ["data"]
+}

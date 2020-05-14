@@ -1,0 +1,37 @@
+{
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "firstname": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 16
+        },
+        "lastname": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 16
+        },
+        "email": {
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 30
+        },
+        "password": {
+          "type": "string",
+          "minLength": 6,
+          "maxLength": 16
+        },
+        "role": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 16
+        }
+      }
+    }
+  },
+  "required": ["data"]
+}
