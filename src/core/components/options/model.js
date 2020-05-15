@@ -1,4 +1,5 @@
 import { Model } from 'objection'
+import OptionValues from '../optionValues/model'
 import knex from '../../../base/index'
 Model.knex(knex)
 
@@ -8,15 +9,14 @@ class Options extends Model {
   }
   static get relationMappings () {
     return {
-      // bind: {
-      //   relation: Model.HasManyRelation,
-      //   modelClass: Categories,
-      //   join: {
-      //     from: 'categories.id',
-      //     to: 'categories.bindId'
-      //   },
-      //   modify: { deleted_at: null }
-      // },
+      values: {
+        relation: Model.HasManyRelation,
+        modelClass: OptionValues,
+        join: {
+          from: 'options.id',
+          to: 'optionValues.optionId'
+        }
+      },
       // tours: {
       //   relation: Model.HasOneRelation,
       //   modelClass: Tours,

@@ -9,7 +9,7 @@ class ProductType {
       const productType = await ProductTypes
         .query()
         .whereNull('deleted_at')
-        .eager('[options, makers, measurements]')
+        .eager('[options, options.values, makers, measurements]')
       response(res, 200, 'Ok', productType)
     } catch (err) {
       next(err)
@@ -19,10 +19,11 @@ class ProductType {
   async findOne (req, res, next) {
     try {
       const { id } = req.params
-      const productType = await ProductTypes
+      const [productType] = await ProductTypes
         .query()
         .where('categoryId', id)
         .whereNull('deleted_at')
+        .eager('[options, options.values, makers, measurements]')
       response(res, 200, 'Ok', productType)
     } catch (err) {
       next(err)
@@ -33,7 +34,6 @@ class ProductType {
     try {
       const { id } = req.user
       const { data } = req.body
-      console.log('>>> ', data)
       const productType = await ProductTypes
         .query()
         .upsertGraph(data, { relate: true })
@@ -47,12 +47,11 @@ class ProductType {
     try {
       const { id } = req.params
       const { data } = req.body
-      data.updated_at = new Date()
-      const [productType] = await ProductTypes
+      const productType = await ProductTypes
         .query()
-        .patch(data)
-        .where('id', id)
-        .returning('*')
+        .upsertGraph(data, { relate: true })
+        // .where('id', id)
+        // .returning('*')
       if (!productType) return response(res, 400, 'Bad request')
       response(res, 200, 'Product type was updated', productType)
     } catch (err) {

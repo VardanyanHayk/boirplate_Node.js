@@ -9,6 +9,9 @@ class ProductTypes extends Model {
   static get tableName () {
     return 'productTypes'
   }
+  async $beforeUpdate() {
+    if (!this.deleted_at) this.updated_at = new Date()
+  }
   static get relationMappings () {
     return {
       makers: {
@@ -35,22 +38,6 @@ class ProductTypes extends Model {
           to: 'measurements.productTypeId'
         },
       },
-      // tours: {
-      //   relation: Model.HasOneRelation,
-      //   modelClass: Tours,
-      //   join: {
-      //     from: 'bookings.tourId',
-      //     to: 'tours.id'
-      //   }
-      // },
-      // reseller: {
-      //   relation: Model.HasOneRelation,
-      //   modelClass: Users,
-      //   join: {
-      //     from: 'bookings.resellerId',
-      //     to: 'users.id'
-      //   }
-      // },
     }
   }
   

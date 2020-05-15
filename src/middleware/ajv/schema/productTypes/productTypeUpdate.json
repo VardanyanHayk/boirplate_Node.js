@@ -5,8 +5,11 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "categoryId": {
+        "id": {
           "type": "integer"
+        },
+        "categoryId": {
+          "type": ["integer", "string"]
         },
         "name": {
           "type": "object",
@@ -40,8 +43,133 @@
         },
         "type": {
           "type": "string"
+        },
+        "options": {
+          "type": "array",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "en": {
+                  "type": "string"
+                },
+                "am": {
+                  "type": "string"
+                },
+                "ru": {
+                  "type": "string"
+                }
+              }
+            },
+            "values": {
+              "type": "array",
+              "additionalProperties": false,
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "values": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "en": {
+                      "type": "string"
+                    },
+                    "am": {
+                      "type": "string"
+                    },
+                    "ru": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["id"]
+                }
+              }
+            },
+            "filter": {
+              "type": "boolean"
+            }
+          },
+          "required": ["id"]
+        },
+        "makers": {
+          "type": "array",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "en": {
+                  "type": "string"
+                },
+                "am": {
+                  "type": "string"
+                },
+                "ru": {
+                  "type": "string"
+                }
+              }
+            },
+            "description": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "en": {
+                  "type": "string"
+                },
+                "am": {
+                  "type": "string"
+                },
+                "ru": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "required": ["id"]
+        },
+        "measurements": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "en": {
+                  "type": "string"
+                },
+                "am": {
+                  "type": "string"
+                },
+                "ru": {
+                  "type": "string"
+                }
+              }
+            },
+            "min": {
+              "type": "number"
+            },
+            "type": {
+              "type": "string"
+            }
+          },
+          "required": ["id"]
         }
-      }
+      },
+      "required": ["categoryId", "name", "description", "type", "options", "makers"]
     }
   },
   "required": ["data"]

@@ -61,6 +61,37 @@
               }
             },
             "values": {
+              "type": "array",
+              "additionalProperties": false,
+              "properties": {
+                "values": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "en": {
+                      "type": "string"
+                    },
+                    "am": {
+                      "type": "string"
+                    },
+                    "ru": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "filter": {
+              "type": "boolean"
+            }
+          },
+          "required": ["name"]
+        },
+        "makers": {
+          "type": "array",
+          "additionalProperties": false,
+          "properties": {
+            "name": {
               "type": "object",
               "additionalProperties": false,
               "properties": {
@@ -75,13 +106,53 @@
                 }
               }
             },
-            "filter": {
-              "type": "boolean"
+            "description": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "en": {
+                  "type": "string"
+                },
+                "am": {
+                  "type": "string"
+                },
+                "ru": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "required": ["name"]
+        },
+        "measurements": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "en": {
+                  "type": "string"
+                },
+                "am": {
+                  "type": "string"
+                },
+                "ru": {
+                  "type": "string"
+                }
+              }
+            },
+            "min": {
+              "type": "number"
+            },
+            "type": {
+              "type": "string"
             }
           }
         }
       },
-      "required": ["categoryId", "name", "description", "type"]
+      "required": ["categoryId", "name", "description", "type", "options", "makers"]
     }
   },
   "required": ["data"]
