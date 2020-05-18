@@ -45,6 +45,9 @@
           "type": "array",
           "additionalProperties": false,
           "properties": {
+            "categoryId": {
+              "type": "integer"
+            },
             "name": {
               "type": "object",
               "additionalProperties": false,
@@ -85,7 +88,7 @@
               "type": "boolean"
             }
           },
-          "required": ["name"]
+          "required": ["categoryId", "name"]
         },
         "makers": {
           "type": "array",

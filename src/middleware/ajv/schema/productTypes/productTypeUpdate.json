@@ -48,6 +48,9 @@
           "type": "array",
           "additionalProperties": false,
           "properties": {
+            "categoryId": {
+              "type": "integer"
+            },
             "id": {
               "type": "integer"
             },

@@ -8,11 +8,11 @@ import authorize from '../middleware/passport/strategies/role'
 
 const router = express.Router()
 
-router.get('/', category.findAll)
-router.get('/:id', category.findOne)
+router.get('/', category.findAllData)
+router.get('/:id', category.findOneData)
 
-router.post('/', validateShema('categoryCreate'), category.create)
-router.put('/:id', validateShema('categoryUpdate'), category.update)
-router.delete('/:id', category.delete)
+router.post('/', validateShema('categoryCreate'), category.createData)
+router.put('/:id', validateShema('categoryUpdate'), category.updateData)
+router.delete('/:id', category.deleteData)
 
 export default router

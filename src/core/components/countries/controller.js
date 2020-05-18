@@ -1,7 +1,7 @@
-import AddressesDAO from './model.DAO'
+import CountriesDAO from './model.DAO'
 import { response } from '../../../utils/index';
 
-class Address extends AddressesDAO {
+class Country extends CountriesDAO {
   constructor () {
     super();
     this.findAllData = this.findAllData.bind(this)
@@ -11,9 +11,8 @@ class Address extends AddressesDAO {
   }
   async findAllData (req, res, next) {
     try {
-      const { id } = req.user
-      const address = await this.findByUserId(id)
-      response(res, 200, 'Ok', address)
+      const country = await this.findAll()
+      response(res, 200, 'Ok', country)
     } catch (err) {
       next(err)
     }
@@ -21,11 +20,9 @@ class Address extends AddressesDAO {
 
   async createData (req, res, next) {
     try {
-      const { id } = req.user
       const { data } = req.body
-      data.userId = id
-      const address = await this.create(data)
-      response(res, 200, 'Ok', address)
+      const country = await this.create(data)
+      response(res, 200, 'Ok', country)
     } catch (err) {
       next(err)
     }
@@ -35,10 +32,9 @@ class Address extends AddressesDAO {
     try {
       const { id } = req.params
       const { data } = req.body
-      data.updated_at = new Date()
-      const [address] = await this.update(id, data)
-      if (!address) return response(res, 400, 'Bad request')
-      response(res, 200, 'Address was updated', address)
+      const [country] = await this.update(id, data)
+      if (!country) return response(res, 400, 'Bad request')
+      response(res, 200, 'Country was updated', country)
     } catch (err) {
       next(err)
     }
@@ -47,9 +43,9 @@ class Address extends AddressesDAO {
   async deleteData (req, res, next) {
     try {
       const { id } = req.params
-      const [address] = await this.delete(id)
-      if (!address) return response(res, 400, 'Bad request')
-      response(res, 200, 'Address was deleted')
+      const [country] = await this.delete(id)
+      if (!country) return response(res, 400, 'Bad request')
+      response(res, 200, 'Country was deleted')
     } catch (err) {
       next(err)
     }
@@ -57,6 +53,6 @@ class Address extends AddressesDAO {
 
 }
 
-const addressCtl = new Address()
+const country = new Country()
 
-export default addressCtl
+export default country

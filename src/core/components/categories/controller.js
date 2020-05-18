@@ -1,59 +1,52 @@
-import Categories from './model'
+import CategoriesDAO from './model.DAO'
 import { response } from '../../../utils/index';
 import { query } from 'winston';
 
-class Category {
-
-  async findAll (req, res, next) {
+class Category extends CategoriesDAO {
+  constructor () {
+    super();
+    this.findAllData = this.findAllData.bind(this)
+    this.findOneData = this.findOneData.bind(this)
+    this.createData = this.createData.bind(this)
+    this.updateData = this.updateData.bind(this)
+    this.deleteData = this.deleteData.bind(this)
+  }
+  async findAllData (req, res, next) {
     try {
-      const category = await Categories
-        .query()
-        .where('level', 1)
-        .whereNull('deleted_at')
-        .eager('bind.bind.bind.bind.bind.bind.bind.bind.bind.bind.bind.bind.bind.bind')
+      const category = await this.findAllByLevel(1)
       response(res, 200, 'Ok', category)
     } catch (err) {
       next(err)
     }
   }
 
-  async findOne (req, res, next) {
+  async findOneData (req, res, next) {
     try {
       const { id } = req.params
-      const category = await Categories
-        .query()
-        .where('id', id)
-        .whereNull('deleted_at')
-        .eager('bind.bind.bind.bind.bind.bind.bind.bind.bind.bind.bind.bind.bind.bind')
+      const category = await this.findById(id)
       response(res, 200, 'Ok', category)
     } catch (err) {
       next(err)
     }
   }
 
-  async create (req, res, next) {
+  async createData (req, res, next) {
     try {
       const { id } = req.user
       const { data } = req.body
-      const category = await Categories
-        .query()
-        .insertAndFetch(data)
+      const category = await this.create(data)
       response(res, 200, 'Ok', category)
     } catch (err) {
       next(err)
     }
   }
 
-  async update (req, res, next) {
+  async updateData (req, res, next) {
     try {
       const { id } = req.params
       const { data } = req.body
       data.updated_at = new Date()
-      const [category] = await Categories
-        .query()
-        .patch(data)
-        .where('id', id)
-        .returning('*')
+      const [category] = await this.update(id, data)
       if (!category) return response(res, 400, 'Bad request')
       response(res, 200, 'Category was updated', category)
     } catch (err) {
@@ -61,14 +54,10 @@ class Category {
     }
   }
 
-  async delete (req, res, next) {
+  async deleteData (req, res, next) {
     try {
       const { id } = req.params
-      const [category] = await Categories
-        .query()
-        .patch({ deleted_at: new Date() })
-        .where('id', id)
-        .returning('*')
+      const [category] = await this.delete(id)
       if (!category) return response(res, 400, 'Bad request')
       response(res, 200, 'Category was deleted')
     } catch (err) {

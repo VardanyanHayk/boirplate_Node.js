@@ -1,7 +1,7 @@
-import AddressesDAO from './model.DAO'
+import EmporiumsDAO from './model.DAO';
 import { response } from '../../../utils/index';
 
-class Address extends AddressesDAO {
+class Emporium extends EmporiumsDAO {
   constructor () {
     super();
     this.findAllData = this.findAllData.bind(this)
@@ -9,11 +9,11 @@ class Address extends AddressesDAO {
     this.updateData = this.updateData.bind(this)
     this.deleteData = this.deleteData.bind(this)
   }
+  
   async findAllData (req, res, next) {
     try {
-      const { id } = req.user
-      const address = await this.findByUserId(id)
-      response(res, 200, 'Ok', address)
+      const emporium = await this.findAll()
+      response(res, 200, 'Ok', emporium)
     } catch (err) {
       next(err)
     }
@@ -21,11 +21,9 @@ class Address extends AddressesDAO {
 
   async createData (req, res, next) {
     try {
-      const { id } = req.user
       const { data } = req.body
-      data.userId = id
-      const address = await this.create(data)
-      response(res, 200, 'Ok', address)
+      const emporium = await this.create(data)
+      response(res, 200, 'Ok', emporium)
     } catch (err) {
       next(err)
     }
@@ -35,10 +33,9 @@ class Address extends AddressesDAO {
     try {
       const { id } = req.params
       const { data } = req.body
-      data.updated_at = new Date()
-      const [address] = await this.update(id, data)
-      if (!address) return response(res, 400, 'Bad request')
-      response(res, 200, 'Address was updated', address)
+      const [emporium] = await this.update(id, data)
+      if (!emporium) return response(res, 400, 'Bad request')
+      response(res, 200, 'Emporium was updated', emporium)
     } catch (err) {
       next(err)
     }
@@ -47,9 +44,9 @@ class Address extends AddressesDAO {
   async deleteData (req, res, next) {
     try {
       const { id } = req.params
-      const [address] = await this.delete(id)
-      if (!address) return response(res, 400, 'Bad request')
-      response(res, 200, 'Address was deleted')
+      const [emporium] = await this.delete(id)
+      if (!emporium) return response(res, 400, 'Bad request')
+      response(res, 200, 'Emporium was deleted')
     } catch (err) {
       next(err)
     }
@@ -57,6 +54,6 @@ class Address extends AddressesDAO {
 
 }
 
-const addressCtl = new Address()
+const emporium = new Emporium()
 
-export default addressCtl
+export default emporium

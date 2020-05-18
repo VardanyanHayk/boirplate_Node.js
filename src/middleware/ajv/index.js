@@ -18,6 +18,18 @@ import categoryUpdate from './schema/categories/categoryUpdate.json'
 import productTypeCreate from './schema/productTypes/productTypeCreate.json'
 import productTypeUpdate from './schema/productTypes/productTypeUpdate.json'
 
+//emporium
+import emporiumCreate from './schema/emporiums/emporiumCreate.json'
+import emporiumUpdate from './schema/emporiums/emporiumUpdate.json'
+
+//country
+import countryCreate from './schema/countries/countryCreate.json'
+import countryUpdate from './schema/countries/countryUpdate.json'
+
+//product
+import productCreate from './schema/products/productCreate.json'
+import productUpdate from './schema/products/productUpdate.json'
+
 const ajv = Ajv({ allErrors: true, removeAdditional: 'all' })
 //user
 ajv.addSchema(userCreate, 'userCreate')
@@ -35,6 +47,18 @@ ajv.addSchema(categoryUpdate, 'categoryUpdate')
 //productType
 ajv.addSchema(productTypeCreate, 'productTypeCreate')
 ajv.addSchema(productTypeUpdate, 'productTypeUpdate')
+
+//exmporium
+ajv.addSchema(emporiumCreate, 'emporiumCreate')
+ajv.addSchema(emporiumUpdate, 'emporiumUpdate')
+
+//country
+ajv.addSchema(countryCreate, 'countryCreate')
+ajv.addSchema(countryUpdate, 'countryUpdate')
+
+//product
+ajv.addSchema(productCreate, 'productCreate')
+ajv.addSchema(productUpdate, 'productUpdate')
 
 /**
  * Format error responses
