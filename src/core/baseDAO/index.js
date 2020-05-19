@@ -9,10 +9,23 @@ class BaseDAO {
       .whereNull('deleted_at')
   }
 
+  findOne(id) {
+    return this.model
+      .query()
+      .where('id', id)
+      .whereNull('deleted_at')
+  }
+
   create(data) {
     return this.model
       .query()
       .insertAndFetch(data)
+  }
+
+  createRelated(data) {
+    return this.model
+      .query()
+      .upsertGraph(data, { relate: true })
   }
 
   update(id, data) {
@@ -21,6 +34,12 @@ class BaseDAO {
       .patch(data)
       .where('id', id)
       .returning('*')
+  }
+
+  updateRelated(data) {
+    return this.model
+      .query()
+      .upsertGraph(data, { relate: true })
   }
 
   delete(id) {

@@ -18,13 +18,18 @@ import categoryUpdate from './schema/categories/categoryUpdate.json'
 import productTypeCreate from './schema/productTypes/productTypeCreate.json'
 import productTypeUpdate from './schema/productTypes/productTypeUpdate.json'
 
+//options
+import optionCreate from './schema/options/optionCreate.json'
+import optionUpdate from './schema/options/optionUpdate.json'
+
+//options
+import makerCreate from './schema/makers/makerCreate.json'
+import makerUpdate from './schema/makers/makerUpdate.json'
+
+
 //emporium
 import emporiumCreate from './schema/emporiums/emporiumCreate.json'
 import emporiumUpdate from './schema/emporiums/emporiumUpdate.json'
-
-//country
-import countryCreate from './schema/countries/countryCreate.json'
-import countryUpdate from './schema/countries/countryUpdate.json'
 
 //product
 import productCreate from './schema/products/productCreate.json'
@@ -48,13 +53,17 @@ ajv.addSchema(categoryUpdate, 'categoryUpdate')
 ajv.addSchema(productTypeCreate, 'productTypeCreate')
 ajv.addSchema(productTypeUpdate, 'productTypeUpdate')
 
+//option
+ajv.addSchema(optionCreate, 'optionCreate')
+ajv.addSchema(optionUpdate, 'optionUpdate')
+
+//makers
+ajv.addSchema(makerCreate, 'makerCreate')
+ajv.addSchema(makerUpdate, 'makerUpdate')
+
 //exmporium
 ajv.addSchema(emporiumCreate, 'emporiumCreate')
 ajv.addSchema(emporiumUpdate, 'emporiumUpdate')
-
-//country
-ajv.addSchema(countryCreate, 'countryCreate')
-ajv.addSchema(countryUpdate, 'countryUpdate')
 
 //product
 ajv.addSchema(productCreate, 'productCreate')

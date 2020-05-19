@@ -4,7 +4,7 @@ exports.up = function (knex, Promise) {
   return Promise.all([
     knex.schema.createTable('options', (table) => {
       table.increments('id').unsigned().primary()
-      table.bigint('productTypeId').references('id').inTable('productTypes').notNullable()
+      table.bigint('categoryId').references('id').inTable('categories').notNullable()
       table.json('name')
       table.boolean('filter')
       table.dateTime('created_at').notNullable().defaultTo(knex.fn.now())

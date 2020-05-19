@@ -1,57 +1,61 @@
-import Products from './model'
-import { response } from '../../../utils/index';
-import { query } from 'winston';
+import ProductsDAO from './model.DAO'
+import productTypesDAO from '../productTypes/model.DAO'
+import { response } from '../../../utils/index'
 
-class Product {
-
-  async findAll (req, res, next) {
+class Product extends ProductsDAO {
+  constructor () {
+    super()
+    this.findAllData = this.findAllData.bind(this)
+    this.findOneData = this.findOneData.bind(this)
+    this.createData = this.createData.bind(this)
+    this.updateData = this.updateData.bind(this)
+    this.deleteData = this.deleteData.bind(this)
+  }
+  async findAllData (req, res, next) {
     try {
-      const product = await Products
-        .query()
-        .whereNull('deleted_at')
-        // .eager('[options, options.values, makers, measurements]')
+      const { query } = req
+      const product = await this.findAllProducts(query)
       response(res, 200, 'Ok', product)
     } catch (err) {
       next(err)
     }
   }
 
-  async findOne (req, res, next) {
+  async findOneData (req, res, next) {
     try {
       const { id } = req.params
-      const [product] = await Products
-        .query()
-        .where('categoryId', id)
-        .whereNull('deleted_at')
-        // .eager('[options, options.values, makers, measurements]')
+      const [product] = await this.findOne().eager('[options, options.values, makers, measurements]')
       response(res, 200, 'Ok', product)
     } catch (err) {
       next(err)
     }
   }
 
-  async create (req, res, next) {
+  async createData (req, res, next) {
     try {
       const { id } = req.user
       const { data } = req.body
-      const product = await Products
-        .query()
-        .upsertGraph(data, { relate: true })
+      const [productType] = await productTypesDAO.findOne(data.productTypeId)
+      if (!productType) return response(res, 400, 'Bad request')
+      data.name = productType.name
+      data.description = productType.description
+      data.categoryIds = data.categoryIds.map(it => {
+        return {
+          categoryId: it
+        }
+      })
+      const product = await this.createRelated(data)
       response(res, 200, 'Ok', product)
     } catch (err) {
       next(err)
     }
   }
 
-  async update (req, res, next) {
+  async updateData (req, res, next) {
     try {
       const { id } = req.params
       const { data } = req.body
-      const product = await Products
-        .query()
-        .upsertGraph(data, { relate: true })
-        // .where('id', id)
-        // .returning('*')
+      const product = await this.updateRelated(data)
       if (!product) return response(res, 400, 'Bad request')
       response(res, 200, 'Product was updated', product)
     } catch (err) {
@@ -59,14 +63,10 @@ class Product {
     }
   }
 
-  async delete (req, res, next) {
+  async deleteData (req, res, next) {
     try {
       const { id } = req.params
-      const [product] = await Products
-        .query()
-        .patch({ deleted_at: new Date() })
-        .where('id', id)
-        .returning('*')
+      const [product] = await this.delete(id)
       if (!product) return response(res, 400, 'Bad request')
       response(res, 200, 'Product was deleted')
     } catch (err) {

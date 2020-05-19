@@ -1,8 +1,7 @@
-import { ProductTypesDAO } from './model.DAO'
+import MakersDAO from './model.DAO'
 import { response } from '../../../utils/index';
-import { query } from 'winston';
 
-class ProductType extends ProductTypesDAO {
+class Maker extends MakersDAO {
   constructor () {
     super();
     this.findAllData = this.findAllData.bind(this)
@@ -13,8 +12,8 @@ class ProductType extends ProductTypesDAO {
   }
   async findAllData (req, res, next) {
     try {
-      const productType = await this.findAll().eager('[makers, options, measurements]')
-      response(res, 200, 'Ok', productType)
+      const maker = await this.findAll()
+      response(res, 200, 'Ok', maker)
     } catch (err) {
       next(err)
     }
@@ -23,9 +22,9 @@ class ProductType extends ProductTypesDAO {
   async findOneData (req, res, next) {
     try {
       const { id } = req.params
-      const [productType] = await this.findOne(id).eager('[makers, options, measurements]')
-      if (!productType) return response(res, 400, 'Bad request')
-      response(res, 200, 'Ok', productType)
+      const [maker] = await this.findOne(id)
+      if (!maker) return response(res, 400, 'Bad request')
+      response(res, 200, 'Ok', maker)
     } catch (err) {
       next(err)
     }
@@ -35,8 +34,8 @@ class ProductType extends ProductTypesDAO {
     try {
       const { id } = req.user
       const { data } = req.body
-      const productType = await this.createRelated(data)
-      response(res, 200, 'Ok', productType)
+      const maker = await this.create(data)
+      response(res, 200, 'Ok', maker)
     } catch (err) {
       next(err)
     }
@@ -46,9 +45,9 @@ class ProductType extends ProductTypesDAO {
     try {
       const { id } = req.params
       const { data } = req.body
-      const productType = await this.updateRelated(data)
-      if (!productType) return response(res, 400, 'Bad request')
-      response(res, 200, 'Product type was updated', productType)
+      const maker = await this.update(id, data)
+      if (!maker) return response(res, 400, 'Bad request')
+      response(res, 200, 'Maker was updated', maker)
     } catch (err) {
       next(err)
     }
@@ -57,9 +56,9 @@ class ProductType extends ProductTypesDAO {
   async deleteData (req, res, next) {
     try {
       const { id } = req.params
-      const [productType] = await this.delete(id)
-      if (!productType) return response(res, 400, 'Bad request')
-      response(res, 200, 'Product type was deleted')
+      const [maker] = await this.delete(id)
+      if (!maker) return response(res, 400, 'Bad request')
+      response(res, 200, 'Maker was deleted')
     } catch (err) {
       next(err)
     }
@@ -67,6 +66,6 @@ class ProductType extends ProductTypesDAO {
 
 }
 
-const productType = new ProductType()
+const maker = new Maker()
 
-export default productType
+export default maker

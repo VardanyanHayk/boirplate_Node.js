@@ -3,10 +3,9 @@ exports.up = function (knex, Promise) {
   return Promise.all([
     knex.schema.createTable('products', (table) => {
       table.increments('id').unsigned().primary()
-      table.bigint('categoryId').references('id').inTable('categories').notNullable()
+      table.bigint('userId').references('id').inTable('users').notNullable()
       table.bigint('productTypeId').references('id').inTable('productTypes').notNullable()
       table.bigint('emporiumId').references('id').inTable('emporiums').notNullable()
-      table.bigint('countryId').references('id').inTable('countries').notNullable()
       table.json('name')
       table.json('description')
       table.integer('availability')

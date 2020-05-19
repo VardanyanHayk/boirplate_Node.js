@@ -1,5 +1,5 @@
 import express from 'express'
-import product from '../core/components/products/controller'
+import productCtl from '../core/components/products/controller'
 import { Auth } from '../middleware/passport/routes'
 import { upload } from '../middleware/multer'
 import validateShema from '../middleware/ajv/index'
@@ -8,11 +8,11 @@ import authorize from '../middleware/passport/strategies/role'
 
 const router = express.Router()
 
-router.get('/', product.findAll)
-router.get('/:id', product.findOne)
+router.get('/', productCtl.findAllData)
+router.get('/:id', productCtl.findOneData)
 
-router.post('/', validateShema('productCreate'), product.create)
-router.put('/:id', validateShema('productUpdate'), product.update)
-router.delete('/:id', product.delete)
+router.post('/', validateShema('productCreate'), productCtl.createData)
+router.put('/:id', validateShema('productUpdate'), productCtl.updateData)
+router.delete('/:id', productCtl.deleteData)
 
 export default router

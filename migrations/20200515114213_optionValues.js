@@ -4,6 +4,7 @@ exports.up = function (knex, Promise) {
   return Promise.all([
     knex.schema.createTable('optionValues', (table) => {
       table.increments('id').unsigned().primary()
+      table.bigint('productTypeId').references('id').inTable('productTypes').notNullable()
       table.bigint('optionId').references('id').inTable('options').notNullable()
       table.json('value')
       table.dateTime('created_at').notNullable().defaultTo(knex.fn.now())

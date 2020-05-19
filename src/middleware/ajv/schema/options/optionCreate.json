@@ -5,6 +5,9 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
+        "categoryId": {
+          "type": "integer"
+        },
         "name": {
           "type": "object",
           "additionalProperties": false,
@@ -18,10 +21,13 @@
             "ru": {
               "type": "string"
             }
-          },
-          "required": ["en", "am", "ru"]
+          }
+        },
+        "filter": {
+          "type": "boolean"
         }
-      }
+      },
+      "required": ["categoryId", "name", "filter"]
     }
   },
   "required": ["data"]

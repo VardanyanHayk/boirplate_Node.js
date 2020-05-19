@@ -57,6 +57,6 @@ class Address extends AddressesDAO {
 
 }
 
-const addressCtl = new Address()
+const address = new Address()
 
-export default addressCtl
+export default address
