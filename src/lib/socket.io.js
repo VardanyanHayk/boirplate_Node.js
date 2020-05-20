@@ -1,7 +1,6 @@
 import socket from 'socket.io';
 import jwt from 'jsonwebtoken';
 import secret from '../middleware/passport/secret';
-// import chalk from 'chalk';
 let urlPrefix = '';
 if (process.env.devMode === 'test') urlPrefix = '/socket.io';
 if (process.env.devMode === 'prod') urlPrefix = '/api/v1/socket.io';

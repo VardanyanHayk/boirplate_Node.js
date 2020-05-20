@@ -1,0 +1,117 @@
+{
+  "db": {
+    "development": {
+      "client": "postgresql",
+      "connection": {
+        "database": "test",
+        "user": "postgres",
+        "password": "pass",
+        "host": "localhost"
+      },
+      "pool": {
+        "min": 2,
+        "max": 10
+      },
+      "migrations": {
+        "directory": "./migrations",
+        "tableName": "knex_migrations"
+      }
+    },
+    "test": {
+      "client": "postgresql",
+      "connection": {
+        "database": "test",
+        "user": "postgres",
+        "password": "pass",
+        "host": "localhost"
+      },
+      "pool": {
+        "min": 2,
+        "max": 10
+      },
+      "migrations": {
+        "directory": "./migrations",
+        "tableName": "knex_migrations"
+      }
+    },
+    "production": {
+      "client": "postgresql",
+      "connection": {
+        "database": "test",
+        "user": "postgres",
+        "password": "pass",
+        "host": "localhost"
+      },
+      "pool": {
+        "min": 2,
+        "max": 10
+      },
+      "migrations": {
+        "directory": "./migrations",
+        "tableName": "knex_migrations"
+      }
+    }
+  },
+  "query": {
+    "limit_min": 1,
+    "limit_max": 100,
+    "limit_default": 20,
+    "offset_min": 0,
+    "offset_default": 0
+  },
+  "access": {
+    "guest": 1,
+    "user": 2,
+    "editor": 3,
+    "admin": 4
+  },
+  "jwt": {
+    "secret": "your_secret",
+    "tokens": {
+      "access": {
+        "type": "access",
+        "expiresIn": "1h"
+      },
+      "refresh": {
+        "type": "refresh",
+        "expiresIn": "3h"
+      }
+    }
+  },
+  "salt": "sfssdfsdfds",
+  "default_lang": "ru",
+  "storagePaths": {
+    "users": "public/images/users",
+    "articles": "public/docs/articles",
+    "news": "public/docs/news",
+    "events": "public/docs/events",
+    "books": "public/docs/books",
+    "tags": "public/docs/tags",
+    "about": "public/docs/about",
+    "organizations": "public/images/org",
+    "members": "public/images/members",
+    "load": "public/images/loads",
+    "docs": "public/images/docs",
+    "archive": "public/images/archive"
+  },
+  "redis": {
+    "port": 6379,
+    "host": "127.0.0.1",
+    "db": 0,
+    "showFriendlyErrorStack": true
+  },
+  "mailer": {
+    "transporter": {
+      "service": "gmail",
+      "direct": true,
+      "host": "smtp.gmail.com",
+      "port": 587,
+      "auth": {
+        "user": "test",
+        "pass": "test"
+      },
+      "secure": false
+    },
+    "from": "Aniv ✔ <test>"
+  }
+}
