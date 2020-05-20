@@ -45,7 +45,6 @@ class Category extends CategoriesDAO {
     try {
       const { id } = req.params
       const { data } = req.body
-      data.updated_at = new Date()
       const [category] = await this.update(id, data)
       if (!category) return response(res, 400, 'Bad request')
       response(res, 200, 'Category was updated', category)

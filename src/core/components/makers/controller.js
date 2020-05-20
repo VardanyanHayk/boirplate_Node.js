@@ -12,7 +12,8 @@ class Maker extends MakersDAO {
   }
   async findAllData (req, res, next) {
     try {
-      const maker = await this.findAll()
+      const { query } = req
+      const maker = await this.findAllMakers(query)
       response(res, 200, 'Ok', maker)
     } catch (err) {
       next(err)

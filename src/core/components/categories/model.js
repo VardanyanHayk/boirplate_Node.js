@@ -1,4 +1,5 @@
 import { Model } from 'objection'
+import Makers from '../makers/model'
 import knex from '../../../base/index'
 Model.knex(knex)
 
@@ -6,6 +7,11 @@ class Categories extends Model {
   static get tableName () {
     return 'categories'
   }
+
+  async $beforeUpdate() {
+    if (!this.deleted_at) this.updated_at = new Date()
+  }
+  
   static get relationMappings () {
     return {
       bind: {
@@ -17,22 +23,14 @@ class Categories extends Model {
         },
         modify: { deleted_at: null }
       },
-      // tours: {
-      //   relation: Model.HasOneRelation,
-      //   modelClass: Tours,
-      //   join: {
-      //     from: 'bookings.tourId',
-      //     to: 'tours.id'
-      //   }
-      // },
-      // reseller: {
-      //   relation: Model.HasOneRelation,
-      //   modelClass: Users,
-      //   join: {
-      //     from: 'bookings.resellerId',
-      //     to: 'users.id'
-      //   }
-      // },
+      makers: {
+        relation: Model.HasManyRelation,
+        modelClass: Makers,
+        join: {
+          from: 'categories.id',
+          to: 'makers.categoryId'
+        }
+      },
     }
   }
   

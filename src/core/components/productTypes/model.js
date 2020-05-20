@@ -1,6 +1,6 @@
 import { Model } from 'objection'
 import Makers from '../makers/model'
-import Options from '../options/model'
+import OptionValues from '../optionValues/model'
 import Measurements from '../measurements/model'
 import knex from '../../../base/index'
 Model.knex(knex)
@@ -15,19 +15,19 @@ class ProductTypes extends Model {
   static get relationMappings () {
     return {
       makers: {
-        relation: Model.HasManyRelation,
+        relation: Model.HasOneRelation,
         modelClass: Makers,
         join: {
-          from: 'productTypes.id',
-          to: 'makers.productTypeId'
+          from: 'productTypes.makerId',
+          to: 'makers.id'
         },
       },
-      options: {
+      optionValues: {
         relation: Model.HasManyRelation,
-        modelClass: Options,
+        modelClass: OptionValues,
         join: {
           from: 'productTypes.id',
-          to: 'options.productTypeId'
+          to: 'optionValues.productTypeId'
         },
       },
       measurements: {
