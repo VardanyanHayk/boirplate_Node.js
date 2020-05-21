@@ -5,6 +5,9 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
+        "categoryId": {
+          "type": "integer"
+        },
         "name": {
           "type": "object",
           "additionalProperties": false,
@@ -51,7 +54,7 @@
           }
         }
       },
-      "required": ["name", "country", "description"]
+      "required": ["categoryId", "name", "country", "description"]
     }
   },
   "required": ["data"]

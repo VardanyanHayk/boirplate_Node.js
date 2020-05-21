@@ -15,7 +15,8 @@ class ProductsDAO extends BaseDAO {
     console.log(categoryId)
     const query = this.findAll()
       .select(raw('distinct on ("productTypeId") "productTypeId"'), '*')
-      // .eager('[productType]')
+      .eager('[emporium]')
+
     if (categoryId) query.joinRelation('categoryIds').where('categoryId', categoryId)
     if (productTypeId) query.where('productTypeId', productTypeId)
     return query

@@ -13,7 +13,7 @@ class ProductType extends ProductTypesDAO {
   }
   async findAllData (req, res, next) {
     try {
-      const productType = await this.findAll().eager('[makers, options, measurements]')
+      const productType = await this.findAllProductType()
       response(res, 200, 'Ok', productType)
     } catch (err) {
       next(err)

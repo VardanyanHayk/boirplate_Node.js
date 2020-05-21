@@ -3,6 +3,7 @@ exports.up = function (knex, Promise) {
   return Promise.all([
     knex.schema.createTable('makers', (table) => {
       table.increments('id').unsigned().primary()
+      table.bigint('categoryId').references('id').inTable('categories').notNullable()
       table.json('name')
       table.json('country')
       table.json('description')

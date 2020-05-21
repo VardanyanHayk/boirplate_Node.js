@@ -12,7 +12,8 @@ class Option extends OptionsDAO {
   }
   async findAllData (req, res, next) {
     try {
-      const option = await this.findAll()
+      const { query } = req
+      const option = await this.findAllOptions(query)
       response(res, 200, 'Ok', option)
     } catch (err) {
       next(err)

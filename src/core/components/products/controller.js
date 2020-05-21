@@ -37,6 +37,7 @@ class Product extends ProductsDAO {
       const { data } = req.body
       const [productType] = await productTypesDAO.findOne(data.productTypeId)
       if (!productType) return response(res, 400, 'Bad request')
+      data.userId = id
       data.name = productType.name
       data.description = productType.description
       data.categoryIds = data.categoryIds.map(it => {

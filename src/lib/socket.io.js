@@ -1,10 +1,12 @@
 import socket from 'socket.io';
 import jwt from 'jsonwebtoken';
-import secret from '../middleware/passport/secret';
+import nconf from '../../config';
 let urlPrefix = '';
 if (process.env.devMode === 'test') urlPrefix = '/socket.io';
 if (process.env.devMode === 'prod') urlPrefix = '/api/v1/socket.io';
 const onlineMembers = new Set();
+
+const secret = nconf.get('jwt:secret')
 let io = {};
 
 export const Socket = (server) => {

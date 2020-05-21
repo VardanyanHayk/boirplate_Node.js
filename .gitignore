@@ -46,6 +46,7 @@ typings/
 # vscode
 ./vscode
 ./package-lock.json
+package-lock.json
 # knexfile
 knexfile
 #db config

@@ -2,13 +2,13 @@ import Users from './model'
 import refreshToken from '../refreshToken/controller'
 import passport from 'passport'
 import jwt from 'jsonwebtoken'
-import secret from '../../../middleware/passport/secret'
+import  nconf from '../../../../config'
 import { unlink } from '../../../middleware/multer'
 import passwordHash from 'password-hash'
 import { response } from '../../../utils/index'
 import { forgotPass } from '../../../lib/nodeMailer'
 
-const roles = ['seller']
+const secret = nconf.get('jwt:secret')
 class User {
 
   async create (req, res, next) {
@@ -50,7 +50,7 @@ class User {
           .where('id', id)
           .returning('*')
         const jwtData = { id: updated.id, password: updated.password, exp: Math.floor(Date.now() / 1000) + 60 }
-        const authToken = jwt.sign(JSON.stringify(jwtData), secret.secret1)
+        const authToken = jwt.sign(JSON.stringify(jwtData), secret)
         const refresh = await refreshToken.create(jwtData)
         return response(res, 200, 'Password successfully changed', { authToken, refreshToken: refresh })
       }
@@ -97,7 +97,7 @@ class User {
         }
         // generate a signed son web token with the contents of user object and return it in the response
         const jwtData = { id: user.id, password: user.password, exp: Math.floor(Date.now() / 1000) + 60 }
-        const authToken = jwt.sign(JSON.stringify(jwtData), secret.secret1)
+        const authToken = jwt.sign(JSON.stringify(jwtData), jwt.secret)
         const refresh = await refreshToken.create(jwtData)
         return response(res, 200, 'ok', { authToken, refreshToken: refresh, role: user.role })
       })
