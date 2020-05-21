@@ -21,6 +21,11 @@ class ProductsDAO extends BaseDAO {
     if (productTypeId) query.where('productTypeId', productTypeId)
     return query
   }
+
+  findOneProduct (id) {
+    return this.findOne(id)
+        .eager('[emporium]')
+  }
   
 }
 

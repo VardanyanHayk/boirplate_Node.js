@@ -24,7 +24,7 @@ class Product extends ProductsDAO {
   async findOneData (req, res, next) {
     try {
       const { id } = req.params
-      const [product] = await this.findOne().eager('[options, options.values, makers, measurements]')
+      const [product] = await this.findOneProduct(id)
       response(res, 200, 'Ok', product)
     } catch (err) {
       next(err)

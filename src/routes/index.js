@@ -6,6 +6,7 @@ import productTypes from './productTypes'
 import options from './options'
 import makers from './makers'
 import emporiums from './emporiums'
+import  measurements from './measurements'
 import products from './products'
 
 import { Auth } from '../middleware/passport/routes'
@@ -22,6 +23,7 @@ router.use('/product_type', productTypes)
 router.use('/option', options)
 router.use('/maker', makers)
 router.use('/emporium', emporiums)
+router.use('/measurement', measurements)
 router.use('/product', products)
 
 export default router

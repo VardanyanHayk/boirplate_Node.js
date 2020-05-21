@@ -31,6 +31,10 @@ import makerUpdate from './schema/makers/makerUpdate.json'
 import emporiumCreate from './schema/emporiums/emporiumCreate.json'
 import emporiumUpdate from './schema/emporiums/emporiumUpdate.json'
 
+//measurement
+import measurementCreate from './schema/measurements/measurementCreate.json'
+import measurementUpdate from './schema/measurements/measurementUpdate.json'
+
 //product
 import productCreate from './schema/products/productCreate.json'
 import productUpdate from './schema/products/productUpdate.json'
@@ -61,9 +65,13 @@ ajv.addSchema(optionUpdate, 'optionUpdate')
 ajv.addSchema(makerCreate, 'makerCreate')
 ajv.addSchema(makerUpdate, 'makerUpdate')
 
-//exmporium
+//emporium
 ajv.addSchema(emporiumCreate, 'emporiumCreate')
 ajv.addSchema(emporiumUpdate, 'emporiumUpdate')
+
+//measurement
+ajv.addSchema(measurementCreate, 'measurementCreate')
+ajv.addSchema(measurementUpdate, 'measurementUpdate')
 
 //product
 ajv.addSchema(productCreate, 'productCreate')

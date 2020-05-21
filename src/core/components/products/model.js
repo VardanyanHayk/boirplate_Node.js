@@ -24,11 +24,15 @@ class Products extends Model {
         },
       },
       options: {
-        relation: Model.HasManyRelation,
+        relation: Model.ManyToManyRelation,
         modelClass: Options,
         join: {
-          from: 'productTypes.id',
-          to: 'options.productTypeId'
+          from: 'products.productTypeId',
+          through: {
+            from: 'optionValues.productTypeId',
+            to: 'optionValues.optionId'
+          },
+          to: 'options.id'
         },
       },
       measurements: {
