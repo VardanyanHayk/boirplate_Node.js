@@ -13,7 +13,7 @@ const app = express()
 const server = http.createServer(app)
 Socket(server);
 
-const { port } = process.env
+// const { port } = process.env
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.set('view engine', 'ejs')

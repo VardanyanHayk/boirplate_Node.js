@@ -5,7 +5,7 @@ import app from '../index';
 import nconf from '../config';
 // const socket = require('../socket.io');
 
-app.set('port', nconf.get('port') || 'development');
+app.set('port', nconf.get('port'));
 
 const server = http.createServer(app);
 server.listen(app.get('port'));
