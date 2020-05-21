@@ -15,7 +15,7 @@ Socket(server);
 
 const { port } = process.env
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: true }))
 app.set('view engine', 'ejs')
 app.use(cors())
 app.use(morgan)
@@ -28,8 +28,9 @@ app.use(function error404 (req, res) {
 app.use(async function error500 (err, req, res, next) {
   logger.error(err)
   console.log(err)
-  if (err.nativeError && (err.nativeError.code === '23505' || err.nativeError.code === '23503')) 
+  if (err.nativeError && (err.nativeError.code === '23505' || err.nativeError.code === '23503'))
     res.status(400).send({ code: 400, message: err.nativeError.detail })
   res.status(500).send({ code: 500, message: 'Page not Found', err })
 })
-server.listen(port, () => { console.log(`API started ${port}`) })
+
+export default app;

@@ -1,6 +1,5 @@
-import pify from 'pify'
+import fs from 'fs'
 import path from 'path'
-import fs from 'file-system'
 import multer from 'multer'
 
 // storage options partners
@@ -48,7 +47,7 @@ export const uploadCompress = (req, res, next) => {
   upload(req, res, async err => {
     const files = []
     if (!err && req.files && req.files.length) {
-      const newFiles = Promise.all( 
+      const newFiles = Promise.all(
         req.files.map(async it => {
           if (it.fieldname === 'image') {
             const smallImg = `images/${it.fieldname}-${Date.now()}.jpeg`

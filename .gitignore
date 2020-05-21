@@ -1,5 +1,6 @@
 # Logs
 logs
+/.idea
 *.log
 npm-debug.log*
 yarn-debug.log*
@@ -49,8 +50,9 @@ typings/
 knexfile
 #db config
 ./src/knex/config.js
+/config/config.json
 
 #logger
 log/
 #nconf
-src/config/nconf/config.json
+config/nconf/config.json

@@ -1,14 +1,5 @@
-// Update with your config settings.
+const nconf = require('./config');
 
-module.exports = {
+const config = nconf.get('db');
 
-  development: {
-    client: 'pg',
-    connection: {
-      host: 'localhost',
-      user: 'postgres',
-      password: '111',
-      database: 'marketplacetest'
-    }
-  }
-}
+module.exports = config;
