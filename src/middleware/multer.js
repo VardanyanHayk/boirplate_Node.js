@@ -1,99 +1,96 @@
-import fs from 'fs'
-import path from 'path'
-import multer from 'multer'
+import fs from 'fs';
+import path from 'path';
+import multer from 'multer';
 
 // storage options partners
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
+  destination(req, file, cb) {
     fs.mkdir(`./public/images`, { recursive: true }, (err) => {
       if (err) {
-        return err
+        return err;
       }
-      cb(null, `./public/images`)
-    })
+      cb(null, `./public/images`);
+    });
   },
-  filename: function (req, file, cd) {
-    cd(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
-  }
-})
+  filename(req, file, cd) {
+    cd(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`);
+  },
+});
 
 // chech file type
-function checkFileType (file, cb) {
-  const filetypes = /jpeg|jpg|svg|png|apk|video/
-  const extname = filetypes.test(path.extname(file.originalname).toLowerCase())
-  const mimtype = filetypes.test(file.mimetype)
+function checkFileType(file, cb) {
+  const filetypes = /jpeg|jpg|svg|png|apk|video/;
+  const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+  const mimtype = filetypes.test(file.mimetype);
   // console.log('file>>>>>>>>>>>>', file)
-    if (extname || mimtype) {
-      return cb(null, true)
-    } else {
-      const err = { code: 400, err: `Only ${filetypes}` }
-      return cb(err, true)
-    }
+  if (extname || mimtype) {
+    return cb(null, true);
+  }
+  const err = { code: 400, err: `Only ${filetypes}` };
+  return cb(err, true);
 }
 export const unlink = (path) => {
   fs.unlink(path, (err) => {
-    if (err) console.log(err)
-  })
-}
+    if (err) console.log(err);
+  });
+};
 export const upload = multer({
-  storage: storage,
-  fileFilter: function (req, file, cb) {
+  storage,
+  fileFilter(req, file, cb) {
     // console.log('file>>>>>>>>>>><<<<<<', file)
-    checkFileType(file, cb)
-  }
-}).any()
+    checkFileType(file, cb);
+  },
+}).any();
 
 export const uploadCompress = (req, res, next) => {
-  upload(req, res, async err => {
-    const files = []
+  upload(req, res, async (err) => {
+    const files = [];
     if (!err && req.files && req.files.length) {
       const newFiles = Promise.all(
-        req.files.map(async it => {
+        req.files.map(async (it) => {
           if (it.fieldname === 'image') {
-            const smallImg = `images/${it.fieldname}-${Date.now()}.jpeg`
+            const smallImg = `images/${it.fieldname}-${Date.now()}.jpeg`;
             const dest1 = `./public/${smallImg}`;
             await sharp(it.path)
-              .toFormat("jpeg")
+              .toFormat('jpeg')
               .resize(540)
-              .toFile(dest1)
-            const mediumImg = `images/${it.fieldname}-${Date.now()}.jpeg`
+              .toFile(dest1);
+            const mediumImg = `images/${it.fieldname}-${Date.now()}.jpeg`;
             const dest2 = `./public/${mediumImg}`;
             await sharp(it.path)
-              .toFormat("jpeg")
+              .toFormat('jpeg')
               .resize(720)
-              .toFile(dest2)
-            files.push( {
+              .toFile(dest2);
+            files.push({
               type: it.fieldname,
-              path: it.path.split('public/')[1]
+              path: it.path.split('public/')[1],
             },
             {
               type: 'smallImage',
-              path: smallImg
+              path: smallImg,
             },
             {
               type: 'mediumImage',
-              path: mediumImg
-            },
-            )
+              path: mediumImg,
+            });
           }
           if (it.fieldname === 'cropImage') {
             files.push({
-              type:it.fieldname,
-              path: it.path.split('public/')[1]
-            })
+              type: it.fieldname,
+              path: it.path.split('public/')[1],
+            });
           }
           if (it.fieldname === 'video') {
             files.push({
-              type:it.fieldname,
-              path: it.path.split('public/')[1]
-            })
+              type: it.fieldname,
+              path: it.path.split('public/')[1],
+            });
           }
-        })
-      )
-      await newFiles
-      req.files = files
-      next()
-    }
-    else next();
+        }),
+      );
+      await newFiles;
+      req.files = files;
+      next();
+    } else next();
   });
-}
+};

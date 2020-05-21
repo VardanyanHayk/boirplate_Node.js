@@ -1,11 +1,13 @@
-import  fs from 'fs';
+import fs from 'fs';
 import winston from 'winston';
 import { resolve } from 'path';
-import 'winston-daily-rotate-file';
 import { format } from 'date-fns';
+import 'winston-daily-rotate-file';
 import { utcToZonedTime } from 'date-fns-tz';
 
-const env = process.env;
+import nconf from '../../config';
+
+const env = nconf.get('NODE_ENV');
 const logDir = resolve(__dirname, '../../', 'log');
 
 // Create the log directory if it does not exist

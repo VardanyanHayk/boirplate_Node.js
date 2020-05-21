@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --exec babel-node ./bin/www",
+    "start": "babel-node ./bin/www",
+    "dev": "nodemon --exec babel-node ./bin/www",
+    "copyEnv": "cp .env.example .env && cd config && cp config.example.json config.json",
     "migrate": "knex migrate:latest"
   },
   "author": "Hayk Vardanyan",

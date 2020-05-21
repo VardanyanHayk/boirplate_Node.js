@@ -1,0 +1,12 @@
+{
+  "apps" : [{
+    "name"         : "marketplace",
+    "script"       : "npm",
+    "args"         : "start",
+    "watch"        : "./",
+    "ignore_watch" : ["node_modules", "public", "log"],
+    "instances"    : 1,
+    "instance_var" : "INSTANCE_ID",
+    "exec_mode"    : "fork"
+  }]
+}

@@ -1,17 +1,17 @@
-function authorize (roles = []) {
+function authorize(roles = []) {
   if (typeof roles === 'string') {
-    roles = [roles]
+    roles = [roles];
   }
 
   return [
     (req, res, next) => {
-      console.log(req.user)
+      console.log(req.user);
       if (roles.length && !roles.includes(req.user.role)) {
-        return res.status(401).json({ message: 'Unauthorized' })
+        return res.status(401).json({ message: 'Unauthorized' });
       }
-      next()
-    }
-  ]
+      next();
+    },
+  ];
 }
 
-export default authorize
+export default authorize;

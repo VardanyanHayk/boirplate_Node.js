@@ -1,5 +1,5 @@
-import morgan from 'morgan'
-import logger from '../lib/logger'
+import morgan from 'morgan';
+import logger from '../lib/logger';
 
 morgan.token('user', req => req.user && `${req.user.firstname} ${req.user.lastname} ${req.user.id}`);
 
