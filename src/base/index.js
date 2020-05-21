@@ -10,13 +10,13 @@ const Database = Knex(dbConfig);
 
 Model.knex(Database);
 
-(async function () {
-  await Database.select().from('users')
-    .then((version) => console.log('knex connected succsessfully')
-    ).catch((err) => {
-      console.log(err)
-      throw err
-    })
-}())
+(function () {
+  Database.select().from('users')
+    .then(() => console.log('knex connected successfully'))
+    .catch((err) => {
+      console.log(err);
+      throw err;
+    });
+}());
 
-export default Database
+export default Database;

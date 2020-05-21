@@ -6,6 +6,7 @@ if (process.env.devMode === 'test') urlPrefix = '/socket.io';
 if (process.env.devMode === 'prod') urlPrefix = '/api/v1/socket.io';
 const onlineMembers = new Set();
 let io = {};
+
 export const Socket = (server) => {
   io = socket(server, {
     path: urlPrefix,

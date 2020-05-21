@@ -1,31 +1,31 @@
 class BaseDAO {
-  constructor (model) {
-    this.model = model
+  constructor(model) {
+    this.model = model;
   }
 
   findAll() {
     return this.model
       .query()
-      .whereNull('deleted_at')
+      .whereNull('deleted_at');
   }
 
   findOne(id) {
     return this.model
       .query()
       .where('id', id)
-      .whereNull('deleted_at')
+      .whereNull('deleted_at');
   }
 
   create(data) {
     return this.model
       .query()
-      .insertAndFetch(data)
+      .insertAndFetch(data);
   }
 
   createRelated(data) {
     return this.model
       .query()
-      .upsertGraph(data, { relate: true })
+      .upsertGraph(data, { relate: true });
   }
 
   update(id, data) {
@@ -33,13 +33,13 @@ class BaseDAO {
       .query()
       .patch(data)
       .where('id', id)
-      .returning('*')
+      .returning('*');
   }
 
   updateRelated(data) {
     return this.model
       .query()
-      .upsertGraph(data, { relate: true })
+      .upsertGraph(data, { relate: true });
   }
 
   delete(id) {
@@ -48,8 +48,8 @@ class BaseDAO {
       .patch({ deleted_at: new Date() })
       .whereNull('deleted_at')
       .where('id', id)
-      .returning('*')
+      .returning('*');
   }
 }
 
-export default BaseDAO
+export default BaseDAO;

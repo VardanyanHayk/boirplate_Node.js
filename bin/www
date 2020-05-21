@@ -3,9 +3,9 @@ import logger from '../src/lib/logger';
 
 import app from '../index';
 import nconf from '../config';
-// const socket = require('../socket.io');
+import { Socket } from '../src/lib/socket.io';
 
-app.set('port', nconf.get('port') || 'development');
+app.set('port', nconf.get('port'));
 
 const server = http.createServer(app);
 server.listen(app.get('port'));
@@ -40,7 +40,7 @@ function onListening() {
     ? `pipe ${addr}`
     : `port ${addr.port}`;
   logger.debug('Server listening on %s', bind);
-  // socket(server);
+  Socket(server);
 }
 
 server.on('error', onError);
