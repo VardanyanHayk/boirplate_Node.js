@@ -1,7 +1,7 @@
-const Knex = require('knex');
-const { Model } = require('objection');
+import Knex from 'knex';
+import { Model } from 'objection';
 
-const nconf = require('../../config');
+import nconf from '../../config';
 
 const env = nconf.get('NODE_ENV') || 'development';
 const dbConfig = nconf.get('db')[env];
