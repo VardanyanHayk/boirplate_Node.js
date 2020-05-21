@@ -59,12 +59,6 @@
     "offset_min": 0,
     "offset_default": 0
   },
-  "access": {
-    "guest": 1,
-    "user": 2,
-    "editor": 3,
-    "admin": 4
-  },
   "jwt": {
     "secret": "your_secret",
     "tokens": {
@@ -78,40 +72,5 @@
       }
     }
   },
-  "salt": "sfssdfsdfds",
-  "default_lang": "ru",
-  "storagePaths": {
-    "users": "public/images/users",
-    "articles": "public/docs/articles",
-    "news": "public/docs/news",
-    "events": "public/docs/events",
-    "books": "public/docs/books",
-    "tags": "public/docs/tags",
-    "about": "public/docs/about",
-    "organizations": "public/images/org",
-    "members": "public/images/members",
-    "load": "public/images/loads",
-    "docs": "public/images/docs",
-    "archive": "public/images/archive"
-  },
-  "redis": {
-    "port": 6379,
-    "host": "127.0.0.1",
-    "db": 0,
-    "showFriendlyErrorStack": true
-  },
-  "mailer": {
-    "transporter": {
-      "service": "gmail",
-      "direct": true,
-      "host": "smtp.gmail.com",
-      "port": 587,
-      "auth": {
-        "user": "test",
-        "pass": "test"
-      },
-      "secure": false
-    },
-    "from": "Aniv ✔ <test>"
-  }
+  "salt": "sfssdfsdfds"
 }
