@@ -6,6 +6,7 @@ exports.up = function (knex, Promise) {
       table.bigint('userId').references('id').inTable('users').notNullable()
       table.bigint('productTypeId').references('id').inTable('productTypes').notNullable()
       table.bigint('emporiumId').references('id').inTable('emporiums').notNullable()
+      table.bigint('makerId').references('id').inTable('makers').nullable()
       table.json('name')
       table.json('description')
       table.integer('availability')

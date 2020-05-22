@@ -1,6 +1,7 @@
 import { Model } from 'objection'
 import CategoryProducts from '../categoryProducts/model'
 import Options from '../options/model'
+import OptionValues from '../optionValues/model'
 import Measurements from '../measurements/model'
 import Emporiums from '../emporiums/model'
 import knex from '../../../base/index'
@@ -23,24 +24,24 @@ class Products extends Model {
           to: 'categoryProduct.productId'
         },
       },
-      options: {
+      optionValues: {
+        relation: Model.HasManyRelation,
+        modelClass: OptionValues,
+        join: {
+          from: 'products.productTypeId',
+          to: 'optionValues.productTypeId'
+        },
+      },
+      measurement: {
         relation: Model.ManyToManyRelation,
-        modelClass: Options,
+        modelClass: Measurements,
         join: {
           from: 'products.productTypeId',
           through: {
-            from: 'optionValues.productTypeId',
-            to: 'optionValues.optionId'
+            from: 'productTypes.id',
+            to: 'productTypes.measurementId'
           },
-          to: 'options.id'
-        },
-      },
-      measurements: {
-        relation: Model.HasOneRelation,
-        modelClass: Measurements,
-        join: {
-          from: 'productTypes.id',
-          to: 'measurements.productTypeId'
+          to: 'measurements.id'
         },
       },
       emporium: {

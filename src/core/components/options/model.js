@@ -22,22 +22,6 @@ class Options extends Model {
           to: 'optionValues.optionId'
         }
       },
-      // tours: {
-      //   relation: Model.HasOneRelation,
-      //   modelClass: Tours,
-      //   join: {
-      //     from: 'bookings.tourId',
-      //     to: 'tours.id'
-      //   }
-      // },
-      // reseller: {
-      //   relation: Model.HasOneRelation,
-      //   modelClass: Users,
-      //   join: {
-      //     from: 'bookings.resellerId',
-      //     to: 'users.id'
-      //   }
-      // },
     }
   }
   

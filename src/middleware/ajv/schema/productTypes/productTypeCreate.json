@@ -8,7 +8,7 @@
         "categoryId": {
           "type": "integer"
         },
-        "makerId": {
+        "measurementId": {
           "type": "integer"
         },
         "name": {
@@ -73,7 +73,7 @@
           "required": ["productTypeId", "optionId", "value"]
         }
       },
-      "required": ["categoryId", "makerId", "name", "description", "type", "optionValues"]
+      "required": ["categoryId", "name", "description", "type", "optionValues"]
     }
   },
   "required": ["data"]

@@ -14,7 +14,7 @@
         "emporiumId": {
           "type": "integer"
         },
-        "countryId": {
+        "makerId": {
           "type": "integer"
         },
         "name": {

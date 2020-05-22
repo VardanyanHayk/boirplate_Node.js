@@ -14,7 +14,7 @@
         "emporiumId": {
           "type": "integer"
         },
-        "countryId": {
+        "makerId": {
           "type": "integer"
         },
         "name": {
@@ -61,7 +61,7 @@
           "minimum": 0
         }
       },
-      "required": ["categoryIds", "productTypeId", "availability", "price"]
+      "required": ["categoryIds", "productTypeId", "emporiumId", "availability", "price"]
     }
   },
   "required": ["data"]

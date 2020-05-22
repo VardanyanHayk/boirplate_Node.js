@@ -23,7 +23,11 @@ class ProductType extends ProductTypesDAO {
   async findOneData (req, res, next) {
     try {
       const { id } = req.params
-      const [productType] = await this.findOne(id).eager('[makers, options, measurements]')
+      const [productType] = await this.findOne(id)
+          .eager('[makers, optionValues]')
+          .modifyEager('optionValues', (query) => {
+            query.joinRelation('option').select('optionValues.*', 'name')
+          })
       if (!productType) return response(res, 400, 'Bad request')
       response(res, 200, 'Ok', productType)
     } catch (err) {
@@ -46,6 +50,7 @@ class ProductType extends ProductTypesDAO {
     try {
       const { id } = req.params
       const { data } = req.body
+      data.id = id
       const productType = await this.updateRelated(data)
       if (!productType) return response(res, 400, 'Bad request')
       response(res, 200, 'Product type was updated', productType)

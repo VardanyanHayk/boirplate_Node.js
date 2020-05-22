@@ -7,6 +7,11 @@ class OptionValues extends Model {
   static get tableName () {
     return 'optionValues'
   }
+
+  async $beforeUpdate() {
+    if (!this.deleted_at) this.updated_at = new Date()
+  }
+
   static get relationMappings () {
     return {
       option: {

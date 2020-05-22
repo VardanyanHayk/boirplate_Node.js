@@ -10,9 +10,11 @@ export class ProductTypesDAO extends BaseDAO {
     return this.findAll()
       .eager('[makers, optionValues]')
       .modifyEager('optionValues', (query) => {
-        query.joinRelation('option').select('optionValues.*', 'name')
-      })
+        query
+            .joinRelation('option')
+            .select('optionValues.*', 'name')
 
+      })
   }
 }
 

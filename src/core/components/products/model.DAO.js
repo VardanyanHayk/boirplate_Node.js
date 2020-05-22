@@ -12,19 +12,24 @@ class ProductsDAO extends BaseDAO {
       categoryId,
       productTypeId
     } = reqQuery
-    console.log(categoryId)
     const query = this.findAll()
       .select(raw('distinct on ("productTypeId") "productTypeId"'), '*')
-      .eager('[emporium]')
+      .withGraphFetched('[emporium, measurement]')
 
-    if (categoryId) query.joinRelation('categoryIds').where('categoryId', categoryId)
+    if (categoryId) query.joinRelated('categoryIds').where('categoryId', categoryId)
     if (productTypeId) query.where('productTypeId', productTypeId)
     return query
   }
 
   findOneProduct (id) {
     return this.findOne(id)
-        .eager('[emporium]')
+        .withGraphFetched('[emporium, optionValues]')
+        .modifyEager('optionValues', (query) => {
+          query
+              .joinRelated('option')
+              .select( 'name')
+              .omit('created_at')
+        })
   }
   
 }

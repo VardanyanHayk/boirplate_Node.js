@@ -1,6 +1,7 @@
-import 'dotenv/config';
-import nconf from 'nconf';
+const dotEnv = require('dotenv');
+dotEnv.config()
+const nconf = require('nconf');
 
 nconf.argv().env().file({ file: `${__dirname}/config.json` });
 
-export default nconf;
+module.exports = nconf;

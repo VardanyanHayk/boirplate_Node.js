@@ -25,6 +25,7 @@ class Product extends ProductsDAO {
     try {
       const { id } = req.params
       const [product] = await this.findOneProduct(id)
+      if (!product) return  response(res, 400, 'Bad request')
       response(res, 200, 'Ok', product)
     } catch (err) {
       next(err)

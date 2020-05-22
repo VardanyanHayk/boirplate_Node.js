@@ -4,7 +4,7 @@ exports.up = function (knex, Promise) {
     knex.schema.createTable('productTypes', (table) => {
       table.increments('id').unsigned().primary()
       table.bigint('categoryId').references('id').inTable('categories').notNullable()
-      table.bigint('makerId')
+      table.bigint('measurementId')
       table.json('name')
       table.json('description')
       table.string('type')
