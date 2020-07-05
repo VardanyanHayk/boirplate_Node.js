@@ -1,19 +1,14 @@
-import express from 'express'
-import users from './users'
-import addresses from './addresses'
-import categories from './categories'
-import productTypes from './productTypes'
-import { Auth } from '../middleware/passport/routes'
-import log from '../middleware/logger'
+import express from 'express';
+import users from './users';
 
-const router = express.Router()
+import { Auth } from '../middleware/passport/routes';
 
-router.use('/user', users)
+const router = express.Router();
 
-router.use(Auth)
+router.use('/user', users);
 
-router.use('/address', addresses)
-router.use('/category', categories)
-router.use('/product_type', productTypes)
+router.use(Auth);
 
-export default router
+//auth routes
+
+export default router;

@@ -1,21 +1,23 @@
-import { options } from './config'
-import Knex from 'knex'
-import 'dotenv/config'
+import Knex from 'knex';
+import { Model } from 'objection';
 
-let option = {}
-const { devMode } = process.env
+import nconf from '../../config';
 
-if (devMode === 'test') option = options.test
-if (devMode === 'prod') option = options.prod
-const knex = Knex(option);
+const env = nconf.get('NODE_ENV') || 'development';
+const dbConfig = nconf.get('db')[env];
 
-(async function () {
-  await knex.select().from('users')
-    .then((version) => console.log('knex connected succsessfully')
-    ).catch((err) => {
-      console.log(err)
-      throw err
-    })
-}())
+const Database = Knex(dbConfig);
 
-export default knex
+Model.knex(Database);
+
+(function () {
+  Database.select()
+    .from('users')
+    .then(() => console.log('knex connected successfully'))
+    .catch((err) => {
+      console.log(err);
+      throw err;
+    });
+})();
+
+export default Database;
