@@ -13,7 +13,10 @@ const storage = multer.diskStorage({
     });
   },
   filename(req, file, cd) {
-    cd(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`);
+    cd(
+      null,
+      `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`
+    );
   },
 });
 
@@ -51,28 +54,24 @@ export const uploadCompress = (req, res, next) => {
           if (it.fieldname === 'image') {
             const smallImg = `images/${it.fieldname}-${Date.now()}.jpeg`;
             const dest1 = `./public/${smallImg}`;
-            await sharp(it.path)
-              .toFormat('jpeg')
-              .resize(540)
-              .toFile(dest1);
+            await sharp(it.path).toFormat('jpeg').resize(540).toFile(dest1);
             const mediumImg = `images/${it.fieldname}-${Date.now()}.jpeg`;
             const dest2 = `./public/${mediumImg}`;
-            await sharp(it.path)
-              .toFormat('jpeg')
-              .resize(720)
-              .toFile(dest2);
-            files.push({
-              type: it.fieldname,
-              path: it.path.split('public/')[1],
-            },
-            {
-              type: 'smallImage',
-              path: smallImg,
-            },
-            {
-              type: 'mediumImage',
-              path: mediumImg,
-            });
+            await sharp(it.path).toFormat('jpeg').resize(720).toFile(dest2);
+            files.push(
+              {
+                type: it.fieldname,
+                path: it.path.split('public/')[1],
+              },
+              {
+                type: 'smallImage',
+                path: smallImg,
+              },
+              {
+                type: 'mediumImage',
+                path: mediumImg,
+              }
+            );
           }
           if (it.fieldname === 'cropImage') {
             files.push({
@@ -86,7 +85,7 @@ export const uploadCompress = (req, res, next) => {
               path: it.path.split('public/')[1],
             });
           }
-        }),
+        })
       );
       await newFiles;
       req.files = files;

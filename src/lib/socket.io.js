@@ -20,23 +20,37 @@ export const Socket = (server) => {
     try {
       if (client.handshake.query.jwt) {
         console.log('jwt', client.handshake.query.jwt);
-        jwt.verify(client.handshake.query.jwt, secret.secret1, (err, decoded) => {
-          if (err) { console.log(err); return io.sockets.connected[client.id].disconnect(true); }
-          if (decoded) {
-            client.join(decoded.id);
-            onlineMembers.add(decoded.id);
+        jwt.verify(
+          client.handshake.query.jwt,
+          secret.secret1,
+          (err, decoded) => {
+            if (err) {
+              console.log(err);
+              return io.sockets.connected[client.id].disconnect(true);
+            }
+            if (decoded) {
+              client.join(decoded.id);
+              onlineMembers.add(decoded.id);
+            }
           }
-        });
+        );
       } else {
         io.sockets.connected[client.id].disconnect(true);
       }
       client.on('disconnect', () => {
-        jwt.verify(client.handshake.query.jwt, secret.secret1, (err, decoded) => {
-          if (err) { console.log(err); return io.sockets.connected[client.id].disconnect(true); }
-          if (decoded) {
-            onlineMembers.delete(decoded.id);
+        jwt.verify(
+          client.handshake.query.jwt,
+          secret.secret1,
+          (err, decoded) => {
+            if (err) {
+              console.log(err);
+              return io.sockets.connected[client.id].disconnect(true);
+            }
+            if (decoded) {
+              onlineMembers.delete(decoded.id);
+            }
           }
-        });
+        );
       });
     } catch (e) {
       console.log('e -> ', e);
@@ -47,7 +61,7 @@ export const Socket = (server) => {
 
 export const send = (id, serviceName, data) => {
   const members = [...onlineMembers];
-  const users = members.filter(it => it !== id);
+  const users = members.filter((it) => it !== id);
   console.log(socket);
   users.map((it) => {
     io.to(it).emit('updateData', { service_name: serviceName, data });

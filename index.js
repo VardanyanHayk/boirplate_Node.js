@@ -38,7 +38,10 @@ app.use(async (err, req, res, next) => {
     logger.debug('app error => %o', err);
   }
 
-  if (err.nativeError && (err.nativeError.code === '23505' || err.nativeError.code === '23503')) {
+  if (
+    err.nativeError &&
+    (err.nativeError.code === '23505' || err.nativeError.code === '23503')
+  ) {
     status = 400;
     message = err.nativeError.detail;
   }

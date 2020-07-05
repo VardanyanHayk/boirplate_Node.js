@@ -1,12 +1,12 @@
-import nodemailer from 'nodemailer'
+import nodemailer from 'nodemailer';
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: 'testappbyme95@gmail.com',
-    pass: 'efkpwbjwqrtyeect'
-  }
-})
+    pass: 'efkpwbjwqrtyeect',
+  },
+});
 
 export const verificateEmail = async (userEmail, uuid, user) => {
   return new Promise((resolve, reject) => {
@@ -40,17 +40,17 @@ export const verificateEmail = async (userEmail, uuid, user) => {
      <a  href='http://test-it.surge.sh/confirm/${user}/${uuid}'>Confirm</a>
      
      </body>
-     </html>`// plain text body
-    }
+     </html>`, // plain text body
+    };
     transporter.sendMail(mailOptions, (err, info) => {
       if (err) {
-        return { err }
+        return { err };
       } else {
-        resolve(info)
+        resolve(info);
       }
-    })
-  })
-}
+    });
+  });
+};
 export const forgotPass = async (userEmail, token) => {
   return new Promise((resolve, reject) => {
     let mailOptions = {
@@ -75,15 +75,15 @@ export const forgotPass = async (userEmail, token) => {
      <a  href='${token}'>Change password</a>
      <p>'${token}'</p>
      </body>
-     </html>`// plain text body
-    }
+     </html>`, // plain text body
+    };
     transporter.sendMail(mailOptions, (err, info) => {
       if (err) {
-        console.log('mail error', err)
-        return ({ err })
+        console.log('mail error', err);
+        return { err };
       } else {
-        resolve(info)
-      };
-    })
-  })
-}
+        resolve(info);
+      }
+    });
+  });
+};

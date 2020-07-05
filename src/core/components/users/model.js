@@ -3,9 +3,8 @@ import knex from '../../../base/index';
 Model.knex(knex);
 
 class Users extends Model {
-  static get tableName () {
-    return 'users'
+  static get tableName() {
+    return 'users';
   }
-  
 }
-export default Users
+export default Users;
