@@ -1,6 +1,6 @@
 {
   "apps" : [{
-    "name"         : "marketplace",
+    "name"         : "name",
     "script"       : "npm",
     "args"         : "start",
     "watch"        : "./",
